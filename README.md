@@ -1,4 +1,4 @@
-# semver-generator
+# dt-version-gen
 
 A simple script to generate a semver compatible version string from an ISO 8601 date string.
 
