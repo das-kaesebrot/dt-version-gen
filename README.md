@@ -9,7 +9,7 @@ Recommended usage is via a docker container or in GitLab CI/CD pipelines.
 ### Docker
 
 ```bash
-$ docker run --rm daskaesebrot:dt-version-gen "2023-04-24T09:12:23"
+$ docker run --rm daskaesebrot/dt-version-gen "2023-04-24T09:12:23"
 DATETIME_VERSION_MAJOR=2023
 DATETIME_VERSION_MINOR=424
 DATETIME_VERSION_PATCH=91223
@@ -25,7 +25,7 @@ stages:
 # execute the version generator first
 prep-vars:
   stage: setup
-  image: daskaesebrot:dt-version-gen
+  image: daskaesebrot/dt-version-gen
   # append generated variables to existing pipeline environment
   script:
     - version-gen "$CI_PIPELINE_CREATED_AT" >> build.env
