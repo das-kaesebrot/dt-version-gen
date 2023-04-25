@@ -26,10 +26,10 @@ def main():
     patch = f"{dt.hour}{dt.minute:02}{dt.second:02}"
     
     # print so that it can be redirected to a file
-    print(f"DATETIME_VERSION_MAJOR={major}")
-    print(f"DATETIME_VERSION_MINOR={minor}")
-    print(f"DATETIME_VERSION_PATCH={patch}")
-    print(f"DATETIME_VERSION_FULL={major}.{minor}.{patch}", flush=True)
+    sys.stdout.write(f"DATETIME_VERSION_MAJOR={major}\n")
+    sys.stdout.write(f"DATETIME_VERSION_MINOR={minor}\n")
+    sys.stdout.write(f"DATETIME_VERSION_PATCH={patch}\n")
+    sys.stdout.write(f"DATETIME_VERSION_FULL={major}.{minor}.{patch}\n")
 
 
 if __name__ == "__main__":
