@@ -10,6 +10,8 @@ RUN apk update && \
 
 RUN usermod --shell /bin/bash root
 
+SHELL ["/bin/bash", "-c"]
+
 RUN chmod +x "${WORKDIR}/version-gen.py" && \
     ln -s "${WORKDIR}/version-gen.py" /usr/bin/version-gen
 
