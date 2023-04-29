@@ -55,4 +55,5 @@ jobs:
           tags: | 
             ${{ steps.meta.outputs.tags }}
             ${{ env.IMAGE_NAME }}:latest
+            ${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
