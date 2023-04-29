@@ -8,6 +8,8 @@ Recommended usage is via a GitLab CI/CD pipelines.
 
 ### GitLab CI/CD
 
+Also see: https://docs.gitlab.com/ee/ci/variables/#pass-an-environment-variable-to-another-job
+
 ```yaml
 stages:
   - setup
@@ -44,7 +46,6 @@ publish-docker:
     - |
       docker build \
         --cache-from $CI_REGISTRY_IMAGE:latest \
-        --build-arg GH_TOKEN=$GH_TOKEN \
         --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA \
         --tag $CI_REGISTRY_IMAGE:$DATETIME_VERSION_FULL \
         --tag $CI_REGISTRY_IMAGE:latest \
