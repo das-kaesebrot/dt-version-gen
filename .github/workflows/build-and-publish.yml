@@ -5,8 +5,9 @@ on:
     branches:
       - main
     paths:
-      - "*.py"
+      - "**.py"
       - .github/workflows/build-and-publish.yml
+      - Dockerfile
 
 jobs:
   build-and-push-image:
