@@ -5,11 +5,8 @@ on:
     branches:
       - main
     paths:
-      - '**.py'
-      - '.github/workflows/build-and-publish.yml'
-
-env:
-  IMAGE_NAME: daskaesebrot/dt-version-gen
+      - "*.py"
+      - .github/workflows/build-and-publish.yml
 
 jobs:
   build-and-push-image:
