@@ -17,5 +17,4 @@ WORKDIR /root/app
 RUN chmod +x "${WORKDIR}/version-gen.py" && \
     ln -s "${WORKDIR}/version-gen.py" /usr/bin/version-gen
 
-ENTRYPOINT [ "/bin/bash", "-c" ]
-CMD [ "version-gen" ]
+CMD [ "bash" ]
