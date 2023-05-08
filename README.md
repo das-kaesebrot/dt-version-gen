@@ -2,6 +2,15 @@
 
 A simple script to generate a semver compatible version string from an ISO 8601 date string.
 
+## Example output
+```bash
+$ docker run --rm -it daskaesebrot/dt-version-gen version-gen "2023-05-08T16:34:12Z"
+DATETIME_VERSION_MAJOR=2023
+DATETIME_VERSION_MINOR=508
+DATETIME_VERSION_PATCH=163412
+DATETIME_VERSION_FULL=2023.508.163412
+```
+
 ## Usage
 
 Recommended usage is via a GitLab CI/CD pipelines.
