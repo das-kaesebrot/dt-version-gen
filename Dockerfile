@@ -1,10 +1,10 @@
-FROM python:3.11-bullseye
+FROM python:3.11-alpine
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 
-RUN apt-get update && \
-    apt-get upgrade -y
+RUN apk update && \
+    apk upgrade
 
 ARG WORKDIR="/version-gen"
 RUN mkdir -pv ${WORKDIR}
@@ -17,4 +17,4 @@ WORKDIR /root/app
 RUN chmod +x "${WORKDIR}/version-gen.py" && \
     ln -s "${WORKDIR}/version-gen.py" /usr/bin/version-gen
 
-CMD [ "bash" ]
+CMD [ "sh" ]
