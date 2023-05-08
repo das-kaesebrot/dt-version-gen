@@ -1,11 +1,10 @@
-FROM debian:11
+FROM python:3.11-bullseye
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y python3
+    apt-get upgrade -y
 
 ARG WORKDIR="/version-gen"
 RUN mkdir -pv ${WORKDIR}
@@ -17,3 +16,6 @@ WORKDIR /root/app
 
 RUN chmod +x "${WORKDIR}/version-gen.py" && \
     ln -s "${WORKDIR}/version-gen.py" /usr/bin/version-gen
+
+ENTRYPOINT [ "/bin/bash", "-c" ]
+CMD [ "version-gen" ]
