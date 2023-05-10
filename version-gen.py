@@ -23,7 +23,7 @@ def main():
     
     major = dt.year
     minor = f"{dt.month}{dt.day:02}"
-    patch = f"{dt.hour}{dt.minute:02}{dt.second:02}"
+    patch = f"{dt.hour}{dt.minute:02}"
     
     # print so that it can be redirected to a file
     sys.stdout.write(f"DATETIME_VERSION_MAJOR={major}\n")
