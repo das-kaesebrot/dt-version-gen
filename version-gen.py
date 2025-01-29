@@ -4,16 +4,38 @@ import os
 import sys
 import traceback
 import datetime
-
+import argparse
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Script for generating SemVer-compatible formatted version numbers from an input date",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+
+    parser.add_argument(
+        "datetime_string",
+        help="The date string in ISO 8601 format to parse. If it's unset, the value from the environment variable CI_PIPELINE_CREATED_AT will be used.",
+        type=str,
+        nargs="?"
+    )
+
+    parser.add_argument(
+        "--use-zero-padding",
+        help="Whether to pad numbers with zeroes",
+        action="store_true",
+        required=False,
+        default=False,
+    )
+    
+    args = parser.parse_args()
+    
     # for use with GitLab CI/CD
     # see https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
     dt_str = os.getenv("CI_PIPELINE_CREATED_AT")
     
     # if it's not defined or if an argument is given, use that instead
-    if (len(sys.argv) == 2):
-        dt_str = sys.argv[1]
+    if (args.datetime_string):
+        dt_str = args.datetime_string
         
     if not dt_str:
         print("Arg can't be empty if CI_PIPELINE_CREATED_AT is not set!")
