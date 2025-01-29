@@ -44,14 +44,21 @@ def main():
     dt = datetime.datetime.fromisoformat(dt_str)
     
     major = dt.year
-    minor = f"{dt.month}{dt.day:02}"
-    patch = f"{dt.hour}{dt.minute:02}{dt.second:02}"
+    
+    if args.use_zero_padding:
+        minor = f"{dt.month:02}{dt.day:02}"
+        patch = f"{dt.hour:02}{dt.minute:02}{dt.second:02}"
+    else:
+        minor = f"{dt.month}{dt.day:02}"
+        patch = f"{dt.hour}{dt.minute:02}{dt.second:02}"
+        
+    full = f"{major}.{minor}.{patch}"
     
     # print so that it can be redirected to a file
     sys.stdout.write(f"DATETIME_VERSION_MAJOR={major}\n")
     sys.stdout.write(f"DATETIME_VERSION_MINOR={minor}\n")
     sys.stdout.write(f"DATETIME_VERSION_PATCH={patch}\n")
-    sys.stdout.write(f"DATETIME_VERSION_FULL={major}.{minor}.{patch}\n")
+    sys.stdout.write(f"DATETIME_VERSION_FULL={full}\n")
 
 
 if __name__ == "__main__":
