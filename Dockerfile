@@ -1,20 +1,22 @@
-FROM python:3.14-alpine@sha256:31da4cb527055e4e3d7e9e006dffe9329f84ebea79eaca0a1f1c27ce61e40ca5
+FROM docker.io/library/golang:alpine AS build
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV PYTHONUNBUFFERED=1
+WORKDIR /usr/src/app
 
-RUN apk update && \
-    apk upgrade
+# pre-copy/cache go.mod for pre-downloading dependencies and only redownloading them in subsequent builds if they change
+COPY go.mod ./
+RUN go mod download
 
-ARG WORKDIR="/version-gen"
-RUN mkdir -pv ${WORKDIR}
-COPY *.py ${WORKDIR}
+COPY . .
+RUN go build -v -o /usr/local/bin/app .
 
-RUN mkdir -pv /root/app
+FROM docker.io/library/alpine:3
 
-WORKDIR /root/app
+ARG APP_WORKDIR="/var/opt/dt-version-gen"
 
-RUN chmod +x "${WORKDIR}/version-gen.py" && \
-    ln -s "${WORKDIR}/version-gen.py" /usr/bin/version-gen
+RUN mkdir -pv ${APP_WORKDIR}
 
-CMD [ "sh" ]
+COPY --from=build /usr/local/bin/app /usr/local/bin/version-gen
+
+WORKDIR ${APP_WORKDIR}
+
+CMD ["version-gen"]
