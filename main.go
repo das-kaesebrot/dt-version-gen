@@ -13,9 +13,6 @@ var (
 	useZeroPadding = flag.Bool("use-zero-padding", false, "Whether to pad numbers with zeroes")
 )
 
-// https://stackoverflow.com/questions/38596079/how-do-i-parse-an-iso-8601-timestamp-in-go
-const ISO8601TimePattern string = "2006-01-02T15:04:05-07:00"
-
 func setupFlags(f *flag.FlagSet) {
 	f.Usage = func() {
 		fmt.Printf("usage: %s [-h] [--use-zero-padding] [datetime_string]\n", os.Args[0])
@@ -29,8 +26,9 @@ func setupFlags(f *flag.FlagSet) {
 	}
 }
 
+// https://stackoverflow.com/questions/38596079/how-do-i-parse-an-iso-8601-timestamp-in-go
 func parseCiCdTimeString(value string) (time.Time, error) {
-	return time.Parse(ISO8601TimePattern, value)
+	return time.Parse(time.RFC3339, value)
 }
 
 func main() {
