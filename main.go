@@ -51,20 +51,9 @@ func main() {
 	var err error
 
 	// https://stackoverflow.com/questions/38596079/how-do-i-parse-an-iso-8601-timestamp-in-go
-	if parsedTime, err = time.Parse("2006-01-02T15:04:05-0700", datetime); err != nil {
+	if parsedTime, err = time.Parse("2006-01-02T15:04:05-07:00", datetime); err != nil {
 		logger.Fatalf("%v", err)
 	}
-
-	/*
-	   if args.use_zero_padding:
-	       minor = f"{dt.month:02}{dt.day:02}"
-	       patch = f"{dt.hour:02}{dt.minute:02}{dt.second:02}"
-	   else:
-	       minor = f"{dt.month}{dt.day:02}"
-	       patch = f"{dt.hour}{dt.minute:02}{dt.second:02}"
-
-	   full = f"{major}.{minor}.{patch}"
-	*/
 
 	minorParseFormat := "%02d%02d"
 	patchParseFormat := "%02d%02d%02d"
