@@ -26,6 +26,14 @@ func setupFlags(f *flag.FlagSet) {
 	}
 }
 
+func setupTimezone() error {
+	// always set local time to UTC to guarantee the same behaviour on all systems
+	// alternative: https://stackoverflow.com/questions/54363451/setting-timezone-globally-in-golang
+	time.Local = time.UTC
+
+	return nil
+}
+
 // https://stackoverflow.com/questions/38596079/how-do-i-parse-an-iso-8601-timestamp-in-go
 func parseCiCdTimeString(value string) (time.Time, error) {
 	return time.Parse(time.RFC3339, value)
@@ -37,6 +45,7 @@ func main() {
 	flag.Parse()
 
 	var datetime string
+	var err error
 
 	if flag.NArg() > 1 {
 		flag.CommandLine.Usage()
@@ -52,8 +61,11 @@ func main() {
 		os.Exit(2)
 	}
 
+	if err = setupTimezone(); err != nil {
+		logger.Fatalf("%v", err)
+	}
+
 	var parsedTime time.Time
-	var err error
 
 	if parsedTime, err = parseCiCdTimeString(datetime); err != nil {
 		logger.Fatalf("%v", err)
